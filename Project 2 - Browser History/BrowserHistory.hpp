@@ -7,7 +7,8 @@
 
 using namespace std;
 
-string cmd;
+string cmd, _url;
+size_t _size;
 
 struct Website {
 	string url;
@@ -18,7 +19,7 @@ struct Website {
 
 	friend fstream& operator>>(fstream& read, Website& page) {
 		read >> cmd;
-		if (cmd == "visit") read >> page.url >> page.size;
+		if (cmd == "visit") read >> _url >> _size;
 		return read;
 	}
 
@@ -38,10 +39,12 @@ public:
 		read.open(filename);	
 		if (read.is_open()) {
 			while (read >> link) {
-				if (cmd == "visit") visitSite(link.url, link.size);
+				if (cmd == "visit") visitSite(_url, _size);
 				else if (cmd == "back") backButton();
 				else if (cmd == "forward") forwardButton();
 			}
+
+			read.close();
 		} else {
 			cout << "Could not open \'" << filename << "\'\n";
 			exit(1);
@@ -74,7 +77,7 @@ public:
 	string currentUrl() const { return (getHistoryLength() != 0 ? curr->url : ""); }
 
 	// returns the current webpage's page size (returns 0 if no such site)
-	size_t currentPageSize() const { return (getHistoryLength() != 0 ? curr->size : 0); }
+	size_t currentPageSize() const { return curr->size; }
 
 	// returns the length of the webpage history
 	size_t getHistoryLength() const { return history.size(); }
