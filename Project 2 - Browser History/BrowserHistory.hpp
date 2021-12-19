@@ -71,13 +71,10 @@ public:
 	}
 
 	// returns the current url (returns empty string if no such site)
-	string currentUrl() const { 
-		if (getHistoryLength() == 0) return "";
-		return curr->url;
-	}
+	string currentUrl() const { return (getHistoryLength() != 0 ? curr->url : ""); }
 
 	// returns the current webpage's page size (returns 0 if no such site)
-	size_t currentPageSize() const { return curr->size; }
+	size_t currentPageSize() const { return (getHistoryLength() != 0 ? curr->size : 0); }
 
 	// returns the length of the webpage history
 	size_t getHistoryLength() const { return history.size(); }
