@@ -1,7 +1,5 @@
 #pragma once
-
 #include <iostream>
-
 #define MAX_STORAGE 10
 
 using namespace std;
