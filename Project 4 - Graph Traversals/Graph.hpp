@@ -52,15 +52,14 @@ public:
 
     vector<int> DFS_helper() {
         result.push_back(0);
-        visited[0] = true;
         DFS(0);
         return result;
     }
 
     void DFS(int node) {
+        visited[node] = true;
         for (int edge : mat[node]) {
             if (!visited[edge]) {
-                visited[edge] = true;
                 result.push_back(edge);
                 DFS(edge);
             }
